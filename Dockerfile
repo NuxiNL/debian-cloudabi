@@ -1,10 +1,13 @@
 FROM debian:testing
 
+ENV PATH "/root/.cargo/bin:${PATH}"
+
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y \
-        apt-transport-https build-essential clang-5.0 cmake git libjsoncpp-dev \
-        libyaml-cpp-dev lld-5.0 pkg-config python3 python3-pip wget && \
+        apt-transport-https build-essential clang-5.0 cmake curl git \
+        libjsoncpp-dev libyaml-cpp-dev lld-5.0 pkg-config python3 python3-pip \
+        wget && \
     pip3 install pypeg2 toposort && \
     \
     for target in aarch64-unknown-cloudabi armv6-unknown-cloudabi-eabihf \
@@ -64,5 +67,10 @@ RUN apt-get update && \
     make install && \
     cd .. && \
     rm -Rf cloudabi-utils/ && \
+    \
+    curl https://sh.rustup.rs -sSf | sh -s -- -y && \
+    rustup toolchain install nightly && \
+    rustup default nightly && \
+    rustup target add x86_64-unknown-cloudabi && \
     \
     ldconfig
