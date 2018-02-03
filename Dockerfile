@@ -1,8 +1,9 @@
 FROM debian:testing
 
 RUN apt-get update && \
+    apt-get dist-upgrade -y && \
     apt-get install -y \
-	apt-transport-https build-essential clang-5.0 cmake git libjsoncpp-dev \
+        apt-transport-https build-essential clang-5.0 cmake git libjsoncpp-dev \
         libyaml-cpp-dev lld-5.0 pkg-config python3 python3-pip wget && \
     pip3 install pypeg2 toposort && \
     \
