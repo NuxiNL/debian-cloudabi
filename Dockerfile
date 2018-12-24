@@ -5,8 +5,8 @@ ENV PATH "/root/.cargo/bin:${PATH}"
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y \
-        apt-transport-https build-essential clang-5.0 cmake curl git \
-        libjsoncpp-dev libyaml-cpp-dev lld-5.0 pkg-config python3 python3-pip \
+        apt-transport-https build-essential clang-7 cmake curl git \
+        libjsoncpp-dev libyaml-cpp-dev lld-7 pkg-config python3 python3-pip \
         wget && \
     pip3 install pypeg2 toposort && \
     \
@@ -14,12 +14,12 @@ RUN apt-get update && \
                   armv7-unknown-cloudabi-eabihf i686-unknown-cloudabi \
                   x86_64-unknown-cloudabi; do \
       for tool in ar nm objdump ranlib size; do \
-        ln -s ../lib/llvm-5.0/bin/llvm-${tool} /usr/bin/${target}-${tool}; \
+        ln -s ../lib/llvm-7/bin/llvm-${tool} /usr/bin/${target}-${tool}; \
       done && \
-      ln -s ../lib/llvm-5.0/bin/clang /usr/bin/${target}-cc && \
-      ln -s ../lib/llvm-5.0/bin/clang /usr/bin/${target}-c++ && \
-      ln -s ../lib/llvm-5.0/bin/lld /usr/bin/${target}-ld && \
-      ln -s ../../${target} /usr/lib/llvm-5.0/${target}; \
+      ln -s ../lib/llvm-7/bin/clang /usr/bin/${target}-cc && \
+      ln -s ../lib/llvm-7/bin/clang /usr/bin/${target}-c++ && \
+      ln -s ../lib/llvm-7/bin/lld /usr/bin/${target}-ld && \
+      ln -s ../../${target} /usr/lib/llvm-7/${target}; \
     done && \
     \
     echo deb https://nuxi.nl/distfiles/cloudabi-ports/debian/ cloudabi cloudabi > /etc/apt/sources.list.d/cloudabi.list && \
